@@ -1,0 +1,2 @@
+# BitsimpSharp
+Bitsimp.com DiscordBot
