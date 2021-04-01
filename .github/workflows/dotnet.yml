@@ -3,15 +3,15 @@ name: .NET
 on:
   push:
     branches: 
-    - BitsimpSharp/*
+    - main
     
   pull_request:
     branches:
-    - BitsimpSharp/*
+    - main
     
   workflow_dispatch:
     branches:
-    - BitsimpSharp/*
+    - main
 
 jobs:
   build:
