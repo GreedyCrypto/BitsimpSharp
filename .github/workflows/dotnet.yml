@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore /BitsimpSharp/BitsimpBot.sln
+      run: dotnet restore BitsimpBot
     - name: Build
-      run: dotnet build /BitsimpSharp/BitsimpBot.sln --no-restore
+      run: dotnet build BitsimpBot
     - name: Test
       run: dotnet test --no-build --verbosity normal
