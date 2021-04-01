@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore -s BitsimpSharp/BitsimpBot.sln
+      run: dotnet restore BitsimpSharp/BitsimpBot.sln
     - name: Build
       run: dotnet build BitsimpSharp/BitsimpBot.sln --no-restore
     - name: Test
