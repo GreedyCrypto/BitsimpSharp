@@ -12,7 +12,7 @@ using VRChatN.Configuration;
 
 namespace BitsimpBot.Commands.Modules
 {
-    public class SampleModule : InteractiveBase
+    public class VRCModule : InteractiveBase
     {
 
 
@@ -43,6 +43,16 @@ namespace BitsimpBot.Commands.Modules
         {
             var userInfo = user ?? Context.Client.CurrentUser;
             await ReplyAsync($"{userInfo.Username}#{userInfo.Discriminator}");
+        }
+
+
+        [Command("vrcactive")]
+        [Summary("Should return the current playercount as integer")]
+        public async Task CurrentActivePlayersCount()
+        {
+            dynamic players = await (Settings.APIBase + Settings.activeusers_endpoint + "?apiKey=" + Settings.APIKey).WithBasicAuth(Settings.vrcusername, Settings.vrcpassword).GetStringAsync();
+            int playercount = Int32.Parse(players);
+            await ReplyAsync("Current active players in VRChat: " + playercount.ToString());
         }
 
         [Command("vrcuser")]
