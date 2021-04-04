@@ -137,6 +137,46 @@ namespace Discord.Addons.Interactive
         protected virtual Embed BuildEmbed()
         {
 
+
+            if(InteractiveService.paginatedEmbedType == 2)
+            {
+                    // Type is World embed!!!
+                if (pageList == null || pageList.Count == 0)
+                {
+                    foreach (dynamic world in _pager.Pages)
+                    {
+                        pageList.Add(world);
+                    }
+                    currentPage = 0;
+                }
+                else
+                {
+                    currentPage = currentPage + 1;
+                }
+
+                string WorldThumb = pageList[page - 1].WorldImage;
+                string WorldName = pageList[page - 1].WorldName;
+                int MaxPlayers = pageList[page - 1].MaxPlayers;
+                DateTime date = pageList[page - 1].DateCreated;
+                string author = pageList[page - 1].AuthorName;
+                
+                var builder = new EmbedBuilder()
+                .WithAuthor(WorldName)
+                .WithThumbnailUrl(WorldThumb)
+                .WithDescription("created by " + author)
+                .WithColor(_pager.Color)
+                .WithImageUrl(WorldThumb)
+                .WithFooter(f => f.Text = string.Format(options.FooterFormat, page, pages))
+                .WithTitle(WorldName)
+                .AddField("Time created", date.ToString(), true);
+
+                return builder.Build();
+
+            }else if(InteractiveService.paginatedEmbedType == 1)
+            {
+                
+        
+
             if (pageList == null || pageList.Count == 0)
             {
                 foreach (dynamic friend in _pager.Pages)
@@ -155,6 +195,7 @@ namespace Discord.Addons.Interactive
             string currentBio = pageList[page - 1].bio;
             bool supporter = (pageList[page - 1].tags.Contains("system_supporter") ? true: false);
             string status = pageList[page - 1].statusDescription;
+            
             
             if (status is null || status == "")
                 status = "none";
@@ -209,6 +250,8 @@ namespace Discord.Addons.Interactive
             }
             
             return builder.Build();
+            }
+            return null;
         }
         private async Task RenderAsync()
         {

@@ -10,7 +10,7 @@ namespace Discord.Addons.Interactive
     public class InteractiveService : IDisposable
     {
         public BaseSocketClient Discord { get; }
-
+        public static int paginatedEmbedType {get;set;}
         private Dictionary<ulong, IReactionCallback> _callbacks;
         private TimeSpan _defaultTimeout;
 

@@ -44,7 +44,7 @@ namespace BitsimpBot
             {
 
         
-                    Log.Logger = new LoggerConfiguration()
+                Log.Logger = new LoggerConfiguration()
                   .WriteTo.Console(Serilog.Events.LogEventLevel.Debug)
                   .MinimumLevel.Debug()
                   .Enrich.FromLogContext()
