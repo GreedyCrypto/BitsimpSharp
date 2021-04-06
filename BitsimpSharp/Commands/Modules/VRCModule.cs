@@ -113,9 +113,8 @@ namespace BitsimpBot.Commands.Modules
             string password = Settings.vrcpassword;
 
                 
-            Console.WriteLine(Settings.APIBase + Settings.recentworlds_endpoint + "&&apiKey=" + Settings.APIKey);
-            dynamic client = await (Settings.APIBase + Settings.recentworlds_endpoint + "&apiKey=" + Settings.APIKey).WithCookie("auth", Settings.AuthCookie.Value).WithHeader("User-Agent", "BitsimpSharp").GetJsonAsync<List<World>>();
-
+            //Console.WriteLine(Settings.APIBase + Settings.recentworlds_endpoint + "&&apiKey=" + Settings.APIKey);
+            dynamic client = await (Settings.APIBase + Settings.recentworlds_endpoint + "?sort=_created_at&apiKey=" + Settings.APIKey).WithCookie("auth", Settings.AuthCookie.Value).WithHeader("User-Agent", "BitsimpSharp").GetJsonAsync<List<World>>();
             int searchobjects = 0;
             foreach (World w in client)
             {
