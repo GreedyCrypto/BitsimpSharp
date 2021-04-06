@@ -9,13 +9,37 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using VRChatN.Configuration;
+using System.Net;
 
 namespace BitsimpBot.Commands.Modules
 {
     public class VRCModule : InteractiveBase
     {
 
-        [Command("vrcuser")]
+
+        
+        public static async Task<FlurlCookie> LoginVRC()
+        {
+            string username = Settings.vrcusername;
+            string password = Settings.vrcpassword;
+            dynamic client = await (Settings.APIBase + Settings.login_endpoint + "?apiKey=" + Settings.APIKey).WithBasicAuth(username, password).WithCookies(out var jar).WithHeader("User-Agent", "BitsimpSharp").GetJsonAsync();
+            Console.WriteLine(jar.Count.ToString());
+            foreach(FlurlCookie cookie in jar)
+            {
+                if (cookie.Name == "auth")
+                {
+                    FlurlCookie AuthCookie;
+                    AuthCookie = cookie;
+                    return AuthCookie;
+                }
+            }
+            return null;
+        }
+
+
+
+
+            [Command("vrcuser")]
         [Summary
         ("Should return paginated DiscordEmbed")]
         public async Task GetVRChatUser([Remainder] string args = null)
@@ -35,7 +59,9 @@ namespace BitsimpBot.Commands.Modules
 
                 
             Console.WriteLine(Settings.APIBase + Settings.users_endpoint + "?search" + $"={selectedUser}&apiKey=" + Settings.APIKey);
-            dynamic client = await (Settings.APIBase + Settings.users_endpoint + "?search" + $"={selectedUser}&apiKey=" + Settings.APIKey).WithBasicAuth(username, password).GetJsonAsync<List<Friend>>();
+            //dynamic client = await (Settings.APIBase + Settings.login_endpoint + "?apiKey=" + Settings.APIKey).WithBasicAuth(username, password).WithHeader("User-Agent", "BitsimpSharp").GetJsonAsync<List<Friend>>();
+
+            dynamic client = await (Settings.APIBase + Settings.users_endpoint + "?search" + $"={selectedUser}&apiKey=" + Settings.APIKey).WithCookie("auth", Settings.AuthCookie.Value).WithHeader("User-Agent", "BitsimpSharp").GetJsonAsync<List<Friend>>();
 
             int searchobjects = 0;
             foreach (Friend f in client)

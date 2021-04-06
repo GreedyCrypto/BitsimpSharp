@@ -14,6 +14,8 @@ using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using VRChatN.Configuration;
+using BitsimpBot.Commands.Modules;
+using Flurl.Http;
 
 namespace BitsimpBot
 {
@@ -73,14 +75,19 @@ namespace BitsimpBot
                     Settings.favouriteworlds_endpoint = _config.GetValue<string>("VRChat:Endpoints:FavouriteWorlds");
                     Settings.APIBase = _config.GetValue<string>("VRChat:Endpoints:Base");
                     Settings.APIKey = _config.GetValue<string>("VRChat:Endpoints:key");
-
+                    Settings.login_endpoint = _config.GetValue<string>("VRChat:Endpoints:Login");
 
                     // this is where we get the Token value from the configuration file, and start the bot
                     await client.LoginAsync(TokenType.Bot, Settings.discordtoken);
                     await client.StartAsync();
 
-                    
+                    FlurlCookie AuthCookie = await VRCModule.LoginVRC();
+                    if (AuthCookie == null)
+                        Log.Error("Could not login to VRChat API");
+                    else
+                        Log.Information("Logged in. AuthCookie: " + AuthCookie.Value);
 
+                    Settings.AuthCookie = AuthCookie;
                     // we get the CommandHandler class here and call the InitializeAsync method to start things up for the CommandHandler service
                     await services.GetRequiredService<CommandHandler>().InitializeAsync();
 

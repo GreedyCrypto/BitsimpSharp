@@ -9,10 +9,24 @@ namespace BitsimpBot.Commands.Modules
 {
     public class Moderation : ModuleBase<SocketCommandContext>
     {
+
+        [Command("kick")]
+        [Alias("kick")]
+        [RequireUserPermission(GuildPermission.KickMembers)]
+        public async Task KickUser([Remainder] string args = null)
+        {
+            
+            
+
+        }
+
+
+
+
         [Command("8ball")]
         [Alias("ask")]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        public async Task Kick([Remainder] string args = null)
+        public async Task EightBall([Remainder] string args = null)
         {
             // I like using StringBuilder to build out the reply
             var sb = new StringBuilder();

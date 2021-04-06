@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flurl.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,6 +25,7 @@ namespace VRChatN.Configuration
         public static string favouriteworlds_endpoint;
         public static string usersearch_endpoint;
 
+        public static FlurlCookie AuthCookie; 
 
         public static string vrcusername { get; internal set; }
         public static string vrcpassword { get; internal set; }
