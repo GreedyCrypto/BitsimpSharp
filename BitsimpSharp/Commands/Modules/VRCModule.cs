@@ -114,7 +114,7 @@ namespace BitsimpBot.Commands.Modules
 
                 
             Console.WriteLine(Settings.APIBase + Settings.recentworlds_endpoint + "&&apiKey=" + Settings.APIKey);
-            dynamic client = await (Settings.APIBase + Settings.recentworlds_endpoint + "&apiKey=" + Settings.APIKey).WithBasicAuth(username, password).GetJsonAsync<List<World>>();
+            dynamic client = await (Settings.APIBase + Settings.recentworlds_endpoint + "&apiKey=" + Settings.APIKey).WithCookie("auth", Settings.AuthCookie.Value).GetJsonAsync<List<World>>();
 
             int searchobjects = 0;
             foreach (World w in client)
