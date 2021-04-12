@@ -31,15 +31,20 @@ namespace BitsimpBot.Commands.Modules
 
                     Domain domaindata = await ("https://api.ip2whois.com/v1?key=" + Settings.DomainAPIKey + "&domain=" + domains[i]).GetJsonAsync<Domain>();
 
+
+                    
+
+
+
                     var discordembed = new EmbedBuilder
                     {
                         Title = domaindata.domain,
                         Description = domaindata.domain,
                         Timestamp = DateTime.UtcNow
                     };
-                    discordembed.AddField("Domain Created", domaindata.createdDate, true);
-                    discordembed.AddField("Domain Updated", domaindata.updateDate, true);
-                    discordembed.AddField("Domain Status", domaindata.status, false);
+                    discordembed.AddField("Domain Created", (domaindata.createdDate is null || domaindata.createdDate.ToString() == "") ?  "": domaindata.createdDate, true);
+                    discordembed.AddField("Domain Updated", (domaindata.updateDate is null || domaindata.updateDate.ToString() == "") ? "": domaindata.updateDate, true);
+                    discordembed.AddField("Domain Status", (domaindata.status is null || domaindata.status == "") ? "": domaindata.status, false);
                     await ReplyAsync(embed: discordembed.Build());
                 }
 
