@@ -8,16 +8,16 @@ namespace BitsimpBot.DataContext
     public class Domain
     {
         [JsonProperty("domain")]
-        public string domain { get; set; }
+        public string? domain { get; set; }
         [JsonProperty("create_date")]
-        public DateTime createdDate { get; set; }
+        public DateTime? createdDate { get; set; }
         [JsonProperty("update_date")]
-        public DateTime updateDate { get; set; }
+        public DateTime? updateDate { get; set; }
         [JsonProperty("registrant")]
-        public dynamic registrant { get; set; }
+        public dynamic? registrant { get; set; }
         [JsonProperty("status")]
-        public string status { get; set; }
+        public string? status { get; set; }
         [JsonProperty("registrar")]
-        public dynamic registrar { get; set; }
+        public dynamic? registrar { get; set; }
     }
 }
