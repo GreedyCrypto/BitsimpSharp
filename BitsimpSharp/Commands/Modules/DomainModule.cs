@@ -28,23 +28,16 @@ namespace BitsimpBot.Commands.Modules
 
                 for (var i = 0; i <= domains.Length - 1; i++)
                 {
-
                     Domain domaindata = await ("https://api.ip2whois.com/v1?key=" + Settings.DomainAPIKey + "&domain=" + domains[i]).GetJsonAsync<Domain>();
-
-
-                    
-
-
-
                     var discordembed = new EmbedBuilder
                     {
                         Title = (domaindata.domain is null || domaindata.domain == "") ? "undefined" : domaindata.domain,
                         Description = (domaindata.domain is null || domaindata.domain == "") ? "undefined" : domaindata.domain,
                         Timestamp = DateTime.UtcNow
                     };
-                    discordembed.AddField("Domain Created", (domaindata.createdDate is null || domaindata.createdDate.ToString() == "") ? "undefined": domaindata.createdDate, true);
-                    discordembed.AddField("Domain Updated", (domaindata.updateDate is null || domaindata.updateDate.ToString() == "") ? "unedfined": domaindata.updateDate, true);
-                    discordembed.AddField("Domain Status", (domaindata.status is null || domaindata.status == "") ? "undefined": domaindata.status, false);
+                    discordembed.AddField("Domain Created", (domaindata.createdDate is null || domaindata.createdDate.ToString() == "") ? "undefined" : domaindata.createdDate, true);
+                    discordembed.AddField("Domain Updated", (domaindata.updateDate is null || domaindata.updateDate.ToString() == "") ? "undefined" : domaindata.updateDate, true);
+                    discordembed.AddField("Domain Status", (domaindata.status is null || domaindata.status == "") ? "undefined" : domaindata.status, false);
                     await ReplyAsync(embed: discordembed.Build());
                 }
 
