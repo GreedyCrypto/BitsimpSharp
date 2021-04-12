@@ -30,5 +30,6 @@ namespace VRChatN.Configuration
         public static string vrcusername { get; internal set; }
         public static string vrcpassword { get; internal set; }
         public static string discordtoken { get; internal set; }
+        public static string DomainAPIKey { get; internal set; }
     }
 }

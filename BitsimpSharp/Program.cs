@@ -76,8 +76,10 @@ namespace BitsimpBot
                     Settings.APIBase = _config.GetValue<string>("VRChat:Endpoints:Base");
                     Settings.APIKey = _config.GetValue<string>("VRChat:Endpoints:key");
                     Settings.login_endpoint = _config.GetValue<string>("VRChat:Endpoints:Login");
+                    Settings.DomainAPIKey = _config.GetValue<string>("Domains:IP2WHOIS:ApiKey");
+                       
 
-                    // this is where we get the Token value from the configuration file, and start the bot
+                                        // this is where we get the Token value from the configuration file, and start the bot
                     await client.LoginAsync(TokenType.Bot, Settings.discordtoken);
                     await client.StartAsync();
 
