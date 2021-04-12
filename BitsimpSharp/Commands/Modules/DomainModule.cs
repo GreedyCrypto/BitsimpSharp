@@ -38,13 +38,13 @@ namespace BitsimpBot.Commands.Modules
 
                     var discordembed = new EmbedBuilder
                     {
-                        Title = domaindata.domain,
-                        Description = domaindata.domain,
+                        Title = (domaindata.domain is null || domaindata.domain == "") ? "undefined" : domaindata.domain,
+                        Description = (domaindata.domain is null || domaindata.domain == "") ? "undefined" : domaindata.domain,
                         Timestamp = DateTime.UtcNow
                     };
-                    discordembed.AddField("Domain Created", (domaindata.createdDate is null || domaindata.createdDate.ToString() == "") ?  "": domaindata.createdDate, true);
-                    discordembed.AddField("Domain Updated", (domaindata.updateDate is null || domaindata.updateDate.ToString() == "") ? "": domaindata.updateDate, true);
-                    discordembed.AddField("Domain Status", (domaindata.status is null || domaindata.status == "") ? "": domaindata.status, false);
+                    discordembed.AddField("Domain Created", (domaindata.createdDate is null || domaindata.createdDate.ToString() == "") ? "undefined": domaindata.createdDate, true);
+                    discordembed.AddField("Domain Updated", (domaindata.updateDate is null || domaindata.updateDate.ToString() == "") ? "unedfined": domaindata.updateDate, true);
+                    discordembed.AddField("Domain Status", (domaindata.status is null || domaindata.status == "") ? "undefined": domaindata.status, false);
                     await ReplyAsync(embed: discordembed.Build());
                 }
 
